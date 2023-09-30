@@ -1,1 +1,168 @@
+package todo.list;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Task
+{
+    private String title;
+    private String Description;
+    private String DueDate;
+    private boolean complete;
+
+    public Task(String title, String description, String dueDate)
+    {
+        this.title = title;
+        this.Description = description;
+        this.DueDate = dueDate;
+        this.complete=false;
+    }  
+    
+    public String getTitle() {
+        return title;
+    }
+
+    public void markComplete(){
+        this.complete=true;
+    }
+
+    @Override
+    public String toString() {
+        return  "title=" + title + " Description=" + Description +" DueDate=" +  DueDate + " Status=" + (complete ? "Complete" : "InComplete");
+    }   
+    
+    public static boolean Valid(String input)
+    {
+        return input!=null && !input.trim().isEmpty();
+    }
+}
+
+public class TODO 
+{
+    private ArrayList<Task> tasks=new ArrayList<>();
+    
+    //add task function
+    public void addTask(String title,String Description, String DueDate)
+    {
+        //created a constructor to pass data in list
+        if(Task.Valid(title) && Task.Valid(Description) &&Task.Valid(DueDate))
+        {
+            Task task = new Task(title,Description,DueDate);
+            tasks.add(task);
+            System.out.println("\n==========TASK ADDED SUCCESSFULLY============\n"); 
+        } 
+    }
+    
+    //mark as complete function
+    public void markComplete(int index)
+    {
+        if(index>=0 && index<tasks.size())
+        {
+            tasks.get(index).markComplete();
+            System.out.println("Mark as complete: "+tasks.get(index).getTitle());  
+        }
+        else
+        {
+            System.out.println("Invalid task index number");
+        }
+    }
+    
+    //view tasks function
+    public void viewTasks()
+    {
+        if(tasks.isEmpty())
+        {
+            System.out.println("No tasks");
+        }
+        else
+        {
+            System.out.println("==================Tasks Pending====================");
+            for(int i=0;i<tasks.size();i++)
+            {
+                System.out.println(i+"."+tasks.get(i));
+            }
+        }          
+    }
+    
+    //remove task function
+    public void RemoveTask(int index)
+    {
+        if(index>=0 && index<tasks.size())
+        {
+            tasks.remove(index);
+            System.out.println("\n==========TASK DELETED SUCCESSFULLY============\n");             
+        }
+        else
+        {
+            System.out.println("Invalid task index number");
+        }
+    }
+    
+    void DisplayMenu()
+    { 
+        System.out.println("===================================");
+        System.out.println("|      TODO LIST APPLICATION      |");
+        System.out.println("===================================");
+        //display option to manage tasks
+        System.out.println("1.ADD TASK");
+        System.out.println("2.MARK TASK AS COMPLETE");
+        System.out.println("3.VIEW TASK");
+        System.out.println("4.DELETE TASK");
+        System.out.println("5.EXIT");
+        System.out.println("------------------------------------");
+        System.out.print("ENTER YOUR CHOICE:");
+    }
+    
+    public static void main(String[] args)
+    {
+        TODO app=new TODO();
+        boolean f=true;
+        while(f==true)
+        {
+            app.DisplayMenu();
+            
+            //getting input from user
+            Scanner sc=new Scanner(System.in);
+            int choice=sc.nextInt();
+            sc.nextLine();
+            
+            switch(choice)
+            {
+                case 1:
+                     System.out.print("Enter title- ");
+                    String title = sc.nextLine();
+                    System.out.print("Enter description- ");
+                    String description = sc.nextLine();
+                    System.out.print("Enter due date- ");
+                    String dueDate = sc.nextLine();
+                    app.addTask(title, description, dueDate);
+                break;
+
+                case 2:
+                    System.out.print("Enter Task Index To Mark Complete-");
+                    int ind=sc.nextInt();
+                    app.markComplete(ind);
+                break;
+
+                case 3:
+                    app.viewTasks();
+                    break;    
+
+                case 4:
+                    System.out.print("Enter Task Index To Remove-");
+                    int index=sc.nextInt();
+                    app.RemoveTask(index);
+                break;
+
+                case 5:
+                    f=false;
+                    System.out.println("THANKS FOR VISITING..........");
+                    break;
+
+                default:
+                    System.out.println("INVALID CHOICE......");
+                    break;
+            }
+        }                  
+    }
+}
