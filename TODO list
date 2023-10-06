@@ -54,7 +54,7 @@ public class TODO
     }
     
     //mark as complete function
-    public void markComplete(int index)
+    public void markAsComplete(int index)
     {
         if(index>=0 && index<tasks.size())
         {
@@ -141,7 +141,7 @@ public class TODO
                 case 2:
                     System.out.print("Enter Task Index To Mark Complete-");
                     int ind=sc.nextInt();
-                    app.markComplete(ind);
+                    app.markAsComplete(ind);
                 break;
 
                 case 3:
