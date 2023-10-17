@@ -1,0 +1,103 @@
+package calculator;
+import java.util.Scanner;
+
+public class Calc {
+
+    //display menu function
+    public void displaymenu() {
+        System.out.println("=======================================");
+        System.out.println("|              CALCULATOR             |");
+        System.out.println("=======================================");
+        System.out.println("1.ADDITION");
+        System.out.println("2.SUBTRACTION");
+        System.out.println("3.MULTIPLICATION");
+        System.out.println("4.DIVISION");
+        System.out.println("5.EXIT");
+        System.out.print("ENTER YOUR CHOICE:");
+    }
+
+    //addtion function
+    public double add(double n1, double n2) {
+        return n1 + n2;
+    }
+
+    //subtraction function
+    public double subtract(double n1, double n2) {
+        return n1 - n2;
+    }
+
+    //multiplication function
+    public double multiply(double n1, double n2) {
+        return n1 * n2;
+    }
+
+    //division function
+    public double divide(double n1, double n2) {
+        try {
+            if (n2 == 0) {
+                throw new ArithmeticException("Cannot divide by zero");//if user entered 0
+            }
+        } catch (ArithmeticException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return n1 / n2;
+    }
+
+    //to get input from user function
+    public static double[] getInput(Scanner sc) {
+        double[] input = new double[2];
+        try {
+            System.out.print("\nENTER FIRST NUMBER:");
+            input[0] = Double.parseDouble(sc.nextLine());
+
+            System.out.print("ENTER SECOND NUMBER:");
+            input[1] = Double.parseDouble(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid number.");//validation
+        }
+        return input;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Calc c = new Calc();
+        boolean f = true;
+        while (f == true) {
+            c.displaymenu();
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1:
+                    double[] input1 = Calc.getInput(sc);
+                    System.out.println("Addition of " + input1[0] + " + " + input1[1] + " = " + c.add(input1[0], input1[1]));
+                    break;
+
+                case 2:
+                    double[] input2 = Calc.getInput(sc);
+                    System.out.println("Subtraction of " + input2[0] + " - " + input2[1] + " = " + c.subtract(input2[0], input2[1]));
+                    break;
+
+                case 3:
+                    double[] input3 = Calc.getInput(sc);
+                    System.out.println("Multiplication of " + input3[0] + " x " + input3[1] + " = " + c.multiply(input3[0], input3[1]));
+                    break;
+
+                case 4:
+                    double[] input4 = Calc.getInput(sc);
+                    System.out.println("Division of " + input4[0] + " / " + input4[1] + " = " + c.divide(input4[0], input4[1]));
+                    break;
+
+                case 5:
+                    System.out.println("\nTHANKS FOR VISITING........");
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("INVALID CHOICE,TRY AGAIN...");
+                    break;
+            }
+        }
+    }
+}
