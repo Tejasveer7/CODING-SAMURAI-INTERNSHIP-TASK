@@ -44,15 +44,16 @@ public class Calc {
     }
 
     //to get input from user function
-    public static double[] getInput(Scanner sc) {
-        double[] input = new double[2];
+    public double[] getInput(Scanner sc) {
+        double input[]= new double[2];
         try {
             System.out.print("\nENTER FIRST NUMBER:");
-            input[0] = Double.parseDouble(sc.nextLine());
+            input[0] = sc.nextDouble();
 
             System.out.print("ENTER SECOND NUMBER:");
-            input[1] = Double.parseDouble(sc.nextLine());
-        } catch (NumberFormatException e) {
+            input[1] = sc.nextDouble();
+        } 
+        catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a valid number.");//validation
         }
         return input;
@@ -66,26 +67,26 @@ public class Calc {
         while (f == true) {
             c.displaymenu();
             int choice = sc.nextInt();
-            sc.nextLine();
+            sc.nextLine();//for clear scanner input
 
             switch (choice) {
                 case 1:
-                    double[] input1 = Calc.getInput(sc);
+                    double[] input1 = c.getInput(sc);
                     System.out.println("Addition of " + input1[0] + " + " + input1[1] + " = " + c.add(input1[0], input1[1]));
                     break;
 
                 case 2:
-                    double[] input2 = Calc.getInput(sc);
+                    double[] input2 = c.getInput(sc);
                     System.out.println("Subtraction of " + input2[0] + " - " + input2[1] + " = " + c.subtract(input2[0], input2[1]));
                     break;
 
                 case 3:
-                    double[] input3 = Calc.getInput(sc);
+                    double[] input3 = c.getInput(sc);
                     System.out.println("Multiplication of " + input3[0] + " x " + input3[1] + " = " + c.multiply(input3[0], input3[1]));
                     break;
 
                 case 4:
-                    double[] input4 = Calc.getInput(sc);
+                    double[] input4 = c.getInput(sc);
                     System.out.println("Division of " + input4[0] + " / " + input4[1] + " = " + c.divide(input4[0], input4[1]));
                     break;
 
