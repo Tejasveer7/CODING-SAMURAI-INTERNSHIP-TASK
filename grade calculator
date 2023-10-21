@@ -1,1 +1,89 @@
+package grade.calculator;
+import java.util.Scanner;
+
+public class Grade {
+
+    //display menu
+    public void Display() {
+        System.out.println("--------------------------------");
+        System.out.println("|   STUDENT GRADE CALCULATOR   |");
+        System.out.println("--------------------------------");
+        System.out.println("1.ENTER YOUR COURSE GRADES");
+        System.out.println("2.EXIT");
+    }
+
+    //get input from user
+    public double[] inputs(Scanner sc) {
+        double grade[] = new double[4];
+        String[] gradeNames = {"Assignment", "Quizzes", "Midterm exam", "Final exam"};
+
+        for (int i = 0; i < grade.length; i++) {
+            boolean validInput = false;
+
+            while (!validInput) {
+                System.out.print(gradeNames[i] + " grade: ");
+                double enteredGrade = sc.nextDouble();
+
+                if (enteredGrade >= 0 && enteredGrade <= 100) {
+                    grade[i] = enteredGrade;
+                    validInput = true;
+                } else {
+                    System.out.println("Invalid input. Grades must be between 0 and 100.");
+                }
+            }
+        }
+        return grade;
+    }
+
+    //GRADING SCALE FUNCTION
+    public static double gradingScale(double grade[]) {
+        // Define your grading scale and weights
+        double[] weights = {0.25, 0.15, 0.30, 0.30}; // Assignments, Quizzes, Midterm, Final
+        double finalGrade = 0.0;
+
+        for (int i = 0; i < grade.length; i++) {
+            finalGrade += grade[i] * weights[i];
+        }
+
+        return finalGrade;
+    }
+
+    //GRADING letter SCALE FUNCTION
+    public static String letterGradeScale(double finalGrade) {
+        if (finalGrade >= 90) {
+            return "A";
+        } else if (finalGrade >= 70) {
+            return "B";
+        } else if (finalGrade >= 50) {
+            return "C";
+        } else if (finalGrade >= 35) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+
+    public static void main(String[] args) {
+        Grade ob = new Grade();
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            ob.Display();
+            int ch = sc.nextInt();
+            switch (ch) {
+                case 1:
+                    double grade[] = ob.inputs(sc);
+                    double finalGrade = gradingScale(grade);
+                    System.out.println("Your Final grade is " + letterGradeScale(finalGrade) + " or " + gradingScale(grade));
+                    break;
+                case 2:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid Choice.....");
+                    break;
+            }
+        }
+    }
+}
 
